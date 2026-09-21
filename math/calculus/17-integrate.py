@@ -1,24 +1,32 @@
 #!/usr/bin/env python3
-"""Calculates the derivative of a polynomial."""
+"""Calculates the integral of a polynomial."""
 
 
-def poly_derivative(poly):
-    """Return the derivative of a polynomial."""
+def poly_integral(poly, C=0):
+    """Return the integral of a polynomial."""
     if not isinstance(poly, list) or not poly:
+        return None
+
+    if not isinstance(C, int):
         return None
 
     if not all(isinstance(coef, (int, float)) for coef in poly):
         return None
 
-    if len(poly) == 1:
+    if len(poly) == 1 and poly[0] == 0:
         return [0]
 
-    derivative = []
+    integral = [C]
 
-    for power in range(1, len(poly)):
-        derivative.append(poly[power] * power)
+    for power, coef in enumerate(poly):
+        value = coef / (power + 1)
 
-    while len(derivative) > 1 and derivative[-1] == 0:
-        derivative.pop()
+        if value.is_integer():
+            value = int(value)
 
-    return derivative
+        integral.append(value)
+
+    while len(integral) > 1 and integral[-1] == 0:
+        integral.pop()
+
+    return integral
