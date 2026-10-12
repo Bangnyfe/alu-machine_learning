@@ -42,10 +42,8 @@ class MultiNormal:
             np.matmul(difference.T, inverse), difference
         )
 
-        denominator = np.sqrt(
-            ((2 * np.pi) ** d) * determinant
-        )
-
-        pdf_value = np.exp(exponent[0, 0]) / denominator
+        pdf_value = (
+            1 / (((2 * np.pi) ** (d / 2)) * (determinant ** 0.5))
+        ) * np.exp(exponent[0, 0])
 
         return pdf_value
