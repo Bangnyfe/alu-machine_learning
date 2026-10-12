@@ -22,3 +22,30 @@ class MultiNormal:
         centered = data - self.mean
 
         self.cov = np.matmul(centered, centered.T) / (n - 1)
+
+    def pdf(self, x):
+        """Calculate the PDF at a given data point."""
+        if not isinstance(x, np.ndarray):
+            raise TypeError("x must be a numpy.ndarray")
+
+        d = self.mean.shape[0]
+
+        if x.shape != (d, 1):
+            raise ValueError("x must have the shape ({}, 1)".format(d))
+
+        difference = x - self.mean
+
+        determinant = np.linalg.det(self.cov)
+        inverse = np.linalg.inv(self.cov)
+
+        exponent = -0.5 * np.matmul(
+            np.matmul(difference.T, inverse), difference
+        )
+
+        denominator = np.sqrt(
+            ((2 * np.pi) ** d) * determinant
+        )
+
+        pdf_value = np.exp(exponent[0, 0]) / denominator
+
+        return pdf_value
