@@ -19,4 +19,3 @@ def convolve_grayscale_valid(images, kernel):
             )
 
     return output
-
