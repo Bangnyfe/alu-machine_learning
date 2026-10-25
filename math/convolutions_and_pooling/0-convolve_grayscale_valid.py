@@ -1,4 +1,3 @@
-python
 #!/usr/bin/env python3
 """Module for performing valid convolutions on grayscale images."""
 
@@ -20,3 +19,4 @@ def convolve_grayscale_valid(images, kernel):
             )
 
     return output
+
